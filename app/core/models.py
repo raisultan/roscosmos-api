@@ -6,21 +6,22 @@ from datetime import date
 
 class LaunchPad(models.Model):
   name = models.CharField(max_length=255)
+  establishment_date = models.DateField()
   location = models.CharField(max_length=255)
   area = models.CharField(max_length=64)
   rented = models.BooleanField(default=False)
-  used_by = models.CharField(max_length=255, blank=True)
-  use_period = models.CharField(max_length=255, blank=True)
+  used_by = models.CharField(max_length=255, blank=True, null=True)
+  use_period = models.CharField(max_length=255, blank=True, null=True)
   no_launches = models.IntegerField()
-  no_employees = models.IntegerField(blank=True)
-  description = models.TextField(blank=True)
+  no_employees = models.IntegerField(blank=True, null=True)
+  description = models.TextField(blank=True, null=True)
 
 
 class SpaceTug(models.Model):
   name = models.CharField(max_length=255)
   manufacturer = models.CharField(max_length=255)
-  first_launch_date = models.DateField(blank=True)
-  autonomous_flight_time = models.CharField(max_length=64, blank=True)
+  first_launch_date = models.DateField(blank=True, null=True)
+  autonomous_flight_time = models.CharField(max_length=64, blank=True, null=True)
   length = models.CharField(max_length=64)
   diameter = models.CharField(max_length=64)
   start_mass = models.CharField(max_length=64)
@@ -28,8 +29,8 @@ class SpaceTug(models.Model):
   fuel_supply = models.CharField(max_length=64)
   engine_thrust = models.CharField(max_length=64)
   no_inclusions = models.IntegerField()
-  no_flights = models.IntegerField(blank=True)
-  description = models.TextField(blank=True)
+  no_flights = models.IntegerField(blank=True, null=True)
+  description = models.TextField(blank=True, null=True)
 
 
 class LaunchVehicle(models.Model):
@@ -40,14 +41,14 @@ class LaunchVehicle(models.Model):
   diameter = models.CharField(max_length=64)
   start_mass = models.CharField(max_length=64)
   fuel_type = models.CharField(max_length=64)
-  max_distance = models.CharField(max_length=64, blank=True)
+  max_distance = models.CharField(max_length=64, blank=True, null=True)
   space_tugs = models.ManyToManyField(SpaceTug)
   STATUS_CHOICES = (
     ('ACTIVE', _('Действующий')),
     ('INACTIVE', _('Недействующий')),
   )
   status = models.CharField(max_length=12, choices=STATUS_CHOICES)
-  description = models.TextField(blank=True)
+  description = models.TextField(blank=True, null=True)
 
 class Launch(models.Model):
   name = models.CharField(max_length=255)
@@ -61,37 +62,37 @@ class Launch(models.Model):
     ('UPCOMING', _('Предстоящий')),
   )
   result = models.CharField(max_length=12, choices=RESULT_CHOICES)
-  description = models.TextField(blank=True)
+  description = models.TextField(blank=True, null=True)
 
 
 class Spacecraft(models.Model):
   name = models.CharField(max_length=255)
-  manufacturer = models.CharField(max_length=255, blank=True)
+  manufacturer = models.CharField(max_length=255, blank=True, null=True)
   launch_mass = models.CharField(max_length=64)
   lifetime_period = models.CharField(max_length=64)
-  orbital_period = models.CharField(max_length=64, blank=True)
-  coverage_diameter = models.CharField(max_length=64, blank=True)
+  orbital_period = models.CharField(max_length=64, blank=True, null=True)
+  coverage_diameter = models.CharField(max_length=64, blank=True, null=True)
   power = models.CharField(max_length=64)
   launch_vehicles = models.ManyToManyField(LaunchVehicle)
-  orbital_inclination = models.CharField(max_length=64, blank=True)
-  accuracy = models.CharField(max_length=64, blank=True)
-  description = models.TextField(blank=True)
+  orbital_inclination = models.CharField(max_length=64, blank=True, null=True)
+  accuracy = models.CharField(max_length=64, blank=True, null=True)
+  description = models.TextField(blank=True, null=True)
 
 
 class OrbitalGrouping(models.Model):
   name = models.CharField(max_length=255)
-  first_launch_date = models.DateField(blank=True)
-  no_spacecrafts = models.IntegerField(blank=True)
+  first_launch_date = models.DateField(blank=True, null=True)
+  no_spacecrafts = models.IntegerField(blank=True, null=True)
   spacecrafts = models.ManyToManyField(Spacecraft)
-  no_planes = models.IntegerField(blank=True)
-  no_spacecrafts_on_plane = models.IntegerField(blank=True)
-  orbital_period = models.CharField(max_length=64, blank=True)
-  orbital_inclination = models.CharField(max_length=64, blank=True)
+  no_planes = models.IntegerField(blank=True, null=True)
+  no_spacecrafts_on_plane = models.IntegerField(blank=True, null=True)
+  orbital_period = models.CharField(max_length=64, blank=True, null=True)
+  orbital_inclination = models.CharField(max_length=64, blank=True, null=True)
   orbit_type = models.CharField(max_length=64)
-  orbit_height = models.CharField(max_length=64, blank=True)
-  accuracy = models.CharField(max_length=64, blank=True)
-  coverage = models.CharField(max_length=64, blank=True)
-  description = models.TextField(blank=True)
+  orbit_height = models.CharField(max_length=64, blank=True, null=True)
+  accuracy = models.CharField(max_length=64, blank=True, null=True)
+  coverage = models.CharField(max_length=64, blank=True, null=True)
+  description = models.TextField(blank=True, null=True)
 
 
 class SpaceObservatory(models.Model):
