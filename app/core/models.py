@@ -10,27 +10,33 @@ class LaunchPad(models.Model):
   location = models.CharField(max_length=255)
   area = models.CharField(max_length=64)
   rented = models.BooleanField(default=False)
-  used_by = models.CharField(max_length=255, blank=True, null=True)
-  use_period = models.CharField(max_length=255, blank=True, null=True)
+  used_by = models.CharField(max_length=255, blank=True)
+  use_period = models.CharField(max_length=255, blank=True)
   no_launches = models.IntegerField()
   no_employees = models.IntegerField(blank=True, null=True)
   description = models.TextField(blank=True, null=True)
+
+  def __str__(self):
+    return self.name
 
 
 class SpaceTug(models.Model):
   name = models.CharField(max_length=255)
   manufacturer = models.CharField(max_length=255)
   first_launch_date = models.DateField(blank=True, null=True)
-  autonomous_flight_time = models.CharField(max_length=64, blank=True, null=True)
+  autonomous_flight_time = models.CharField(max_length=64, blank=True)
   length = models.CharField(max_length=64)
   diameter = models.CharField(max_length=64)
   start_mass = models.CharField(max_length=64)
   fuel_type = models.CharField(max_length=64)
   fuel_supply = models.CharField(max_length=64)
   engine_thrust = models.CharField(max_length=64)
-  no_inclusions = models.IntegerField()
+  no_inclusions = models.IntegerField(blank=True, null=True)
   no_flights = models.IntegerField(blank=True, null=True)
-  description = models.TextField(blank=True, null=True)
+  description = models.TextField(blank=True)
+
+  def __str__(self):
+    return self.name
 
 
 class LaunchVehicle(models.Model):
@@ -41,7 +47,7 @@ class LaunchVehicle(models.Model):
   diameter = models.CharField(max_length=64)
   start_mass = models.CharField(max_length=64)
   fuel_type = models.CharField(max_length=64)
-  max_distance = models.CharField(max_length=64, blank=True, null=True)
+  max_distance = models.CharField(max_length=64, blank=True)
   space_tugs = models.ManyToManyField(SpaceTug)
   STATUS_CHOICES = (
     ('ACTIVE', _('Действующий')),
@@ -50,10 +56,14 @@ class LaunchVehicle(models.Model):
   status = models.CharField(max_length=12, choices=STATUS_CHOICES)
   description = models.TextField(blank=True, null=True)
 
+  def __str__(self):
+    return self.name
+
+
 class Launch(models.Model):
   name = models.CharField(max_length=255)
   date = models.DateField()
-  time = models.TimeField()
+  time = models.TimeField(null=True)
   launch_pad = models.ForeignKey(LaunchPad, on_delete=models.CASCADE)
   launch_vehicle = models.ForeignKey(LaunchVehicle, on_delete=models.CASCADE)
   RESULT_CHOICES = (
@@ -64,19 +74,25 @@ class Launch(models.Model):
   result = models.CharField(max_length=12, choices=RESULT_CHOICES)
   description = models.TextField(blank=True, null=True)
 
+  def __str__(self):
+    return self.name
+
 
 class Spacecraft(models.Model):
   name = models.CharField(max_length=255)
-  manufacturer = models.CharField(max_length=255, blank=True, null=True)
+  manufacturer = models.CharField(max_length=255, blank=True)
   launch_mass = models.CharField(max_length=64)
   lifetime_period = models.CharField(max_length=64)
-  orbital_period = models.CharField(max_length=64, blank=True, null=True)
-  coverage_diameter = models.CharField(max_length=64, blank=True, null=True)
+  orbital_period = models.CharField(max_length=64, blank=True)
+  coverage_diameter = models.CharField(max_length=64, blank=True)
   power = models.CharField(max_length=64)
   launch_vehicles = models.ManyToManyField(LaunchVehicle)
-  orbital_inclination = models.CharField(max_length=64, blank=True, null=True)
-  accuracy = models.CharField(max_length=64, blank=True, null=True)
-  description = models.TextField(blank=True, null=True)
+  orbital_inclination = models.CharField(max_length=64, blank=True)
+  accuracy = models.CharField(max_length=64, blank=True)
+  description = models.TextField(blank=True)
+
+  def __str__(self):
+    return self.name
 
 
 class OrbitalGrouping(models.Model):
@@ -86,13 +102,16 @@ class OrbitalGrouping(models.Model):
   spacecrafts = models.ManyToManyField(Spacecraft)
   no_planes = models.IntegerField(blank=True, null=True)
   no_spacecrafts_on_plane = models.IntegerField(blank=True, null=True)
-  orbital_period = models.CharField(max_length=64, blank=True, null=True)
-  orbital_inclination = models.CharField(max_length=64, blank=True, null=True)
+  orbital_period = models.CharField(max_length=64, blank=True)
+  orbital_inclination = models.CharField(max_length=64, blank=True)
   orbit_type = models.CharField(max_length=64)
-  orbit_height = models.CharField(max_length=64, blank=True, null=True)
-  accuracy = models.CharField(max_length=64, blank=True, null=True)
-  coverage = models.CharField(max_length=64, blank=True, null=True)
-  description = models.TextField(blank=True, null=True)
+  orbit_height = models.CharField(max_length=64, blank=True)
+  accuracy = models.CharField(max_length=64, blank=True)
+  coverage = models.CharField(max_length=64, blank=True)
+  description = models.TextField(blank=True)
+
+  def __str__(self):
+    return self.name
 
 
 class SpaceObservatory(models.Model):
@@ -112,6 +131,9 @@ class SpaceObservatory(models.Model):
   transmission_speed = models.CharField(max_length=64)
   flight_duration = models.CharField(max_length=64)
   description = models.TextField(blank=True)
+
+  def __str__(self):
+    return self.name
 
 
 class SpaceStation(models.Model):
@@ -144,3 +166,24 @@ class SpaceStation(models.Model):
   main_modules = models.TextField()
   no_crew = models.IntegerField()
   description = models.TextField(blank=True)
+
+  def __str__(self):
+    return self.name
+
+class ParseUrl(models.Model):
+  name = models.CharField(max_length=255)
+  url = models.URLField()
+  description = models.TextField(blank=True)
+
+  def __str__(self):
+    return self.name
+
+
+class ParserLaunch(models.Model):
+  url = models.ForeignKey(ParseUrl, on_delete=models.CASCADE)
+  parse_date = models.DateTimeField(auto_now_add=True)
+  no_launches = models.IntegerField()
+  last_saved_launch_no = models.IntegerField()
+
+  def __str__(self):
+    return f'{self.parse_date}'
