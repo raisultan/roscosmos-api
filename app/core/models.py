@@ -48,7 +48,7 @@ class LaunchVehicle(models.Model):
   start_mass = models.CharField(max_length=64)
   fuel_type = models.CharField(max_length=64)
   max_distance = models.CharField(max_length=64, blank=True)
-  space_tugs = models.ManyToManyField(SpaceTug)
+  space_tugs = models.ManyToManyField(SpaceTug, blank=True)
   STATUS_CHOICES = (
     ('ACTIVE', _('Действующий')),
     ('INACTIVE', _('Недействующий')),

@@ -19,6 +19,7 @@ services:
       - DB_PASSWORD=django123
     depends_on:
       - db
+      - redis
 
   db:
     image: postgres:10-alpine
@@ -26,3 +27,29 @@ services:
       - POSTGRES_DB=app
       - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=django123
+
+  redis:
+    image: "redis:alpine"
+
+  celery:
+    build: .
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=dbuser
+      - DB_PASSWORD=django123
+    command: celery -A app worker -l info
+    volumes:
+      - ./app:/app
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    build: .
+    command: celery -A app beat -l info
+    volumes:
+      - ./app:/app
+    depends_on:
+      - db
+      - redis

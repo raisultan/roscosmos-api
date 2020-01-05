@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.6-alpine
 MAINTAINER Raysultan Karimov
 
 ENV PYTHONUNBUFFERED 1
@@ -14,6 +14,8 @@ RUN apk del .tmp-build-deps
 RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
+
+EXPOSE 8000
 
 RUN mkdir -p /vol/web/media
 RUN mkdir -p /vol/web/static
