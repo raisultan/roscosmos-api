@@ -67,6 +67,7 @@ class Launch(models.Model):
   launch_pad = models.ForeignKey(LaunchPad, on_delete=models.CASCADE)
   launch_vehicle = models.ForeignKey(LaunchVehicle, on_delete=models.CASCADE)
   RESULT_CHOICES = (
+    ('EMERGENCY', _('Аварийный')),
     ('SUCCESS', _('Успешный')),
     ('FAILED', _('Неуспешный')),
     ('UPCOMING', _('Предстоящий')),
@@ -152,6 +153,7 @@ class SpaceStation(models.Model):
   orbital_period = models.CharField(max_length=64)
   days_in_orbit = models.IntegerField()
   occupied_since = models.DateField()
+
   @property
   def days_occupied(self):
     current_date = date.today()
@@ -170,6 +172,7 @@ class SpaceStation(models.Model):
   def __str__(self):
     return self.name
 
+
 class ParseUrl(models.Model):
   name = models.CharField(max_length=255)
   url = models.URLField()
@@ -182,7 +185,7 @@ class ParseUrl(models.Model):
 class ParserLaunch(models.Model):
   url = models.ForeignKey(ParseUrl, on_delete=models.CASCADE)
   parse_date = models.DateTimeField(auto_now_add=True)
-  no_launches = models.IntegerField()
+  no_launches_saved = models.IntegerField()
   last_saved_launch_no = models.IntegerField()
 
   def __str__(self):
