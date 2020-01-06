@@ -130,7 +130,12 @@ class SpaceObservatory(models.Model):
   lifetime_period = models.CharField(max_length=64)
   radio_frequency_range = models.CharField(max_length=64)
   transmission_speed = models.CharField(max_length=64)
-  flight_duration = models.CharField(max_length=64)
+
+  @property
+  def flight_duration(self):
+    current_date = date.today()
+    delta = current_date - self.launch_date
+    return delta
   description = models.TextField(blank=True)
 
   def __str__(self):
@@ -151,8 +156,14 @@ class SpaceStation(models.Model):
   orbital_inclination = models.CharField(max_length=64)
   orbital_speed = models.CharField(max_length=64)
   orbital_period = models.CharField(max_length=64)
-  days_in_orbit = models.IntegerField()
   occupied_since = models.DateField()
+  in_orbit_since = models.DateField()
+
+  @property
+  def days_in_orbit(self):
+    current_date = date.today()
+    delta = current_date - self.in_orbit_since
+    return delta
 
   @property
   def days_occupied(self):

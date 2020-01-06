@@ -15,8 +15,6 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
 
-EXPOSE 8000
-
 RUN mkdir -p /vol/web/media
 RUN mkdir -p /vol/web/static
 RUN adduser -D user
