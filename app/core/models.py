@@ -89,8 +89,8 @@ class Spacecraft(models.Model):
   lifetime_period = models.CharField(max_length=64)
   orbital_period = models.CharField(max_length=64, blank=True)
   coverage_diameter = models.CharField(max_length=64, blank=True)
-  power = models.CharField(max_length=64)
-  launch_vehicles = models.ManyToManyField(LaunchVehicle)
+  power = models.CharField(max_length=64, blank=True)
+  launch_vehicles = models.ManyToManyField(LaunchVehicle, blank=True)
   orbital_inclination = models.CharField(max_length=64, blank=True)
   accuracy = models.CharField(max_length=64, blank=True)
   description = models.TextField(blank=True)
@@ -141,7 +141,7 @@ class SpaceObservatory(models.Model):
   def flight_duration(self):
     current_date = date.today()
     delta = current_date - self.launch_date
-    return delta
+    return delta.days
   description = models.TextField(blank=True)
 
   def __str__(self):
@@ -151,7 +151,6 @@ class SpaceObservatory(models.Model):
 class SpaceStation(models.Model):
   name = models.CharField(max_length=255)
   spacecraft_type = models.CharField(max_length=64)
-  launch_date = models.DateField()
   mass = models.CharField(max_length=64)
   length = models.CharField(max_length=64)
   width = models.CharField(max_length=64)
@@ -169,19 +168,17 @@ class SpaceStation(models.Model):
   def days_in_orbit(self):
     current_date = date.today()
     delta = current_date - self.in_orbit_since
-    return delta
+    return delta.days
 
   @property
   def days_occupied(self):
     current_date = date.today()
     delta = current_date - self.occupied_since
-    return delta
+    return delta.days
   distance_traveled = models.CharField(max_length=64)
   power = models.CharField(max_length=64)
-  revs_per_day = models.IntegerField()
-  no_revs = models.IntegerField()
   curr_expedition = models.CharField(max_length=255)
-  docked_spacecrafts = models.ManyToManyField(Spacecraft)
+  docked_spacecrafts = models.ManyToManyField(Spacecraft, blank=True)
   main_modules = models.TextField()
   no_crew = models.IntegerField()
   description = models.TextField(blank=True)

@@ -54,7 +54,8 @@ class LaunchSerializer(serializers.ModelSerializer):
 
 
 class SpacecraftSerializer(serializers.ModelSerializer):
-  launch_vehicles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+  launch_vehicles = serializers.PrimaryKeyRelatedField(many=True,
+                                                       read_only=True)
 
   class Meta:
     model = Spacecraft
@@ -79,7 +80,8 @@ class OrbitalGroupingSerializer(serializers.ModelSerializer):
 
 class SpaceObservatorySerializer(serializers.ModelSerializer):
   launch_pad = LaunchPadSerializer(read_only=True)
-  launch_vehicles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+  launch_vehicles = serializers.PrimaryKeyRelatedField(many=True,
+                                                       read_only=True)
 
   class Meta:
     model = SpaceObservatory
@@ -92,16 +94,16 @@ class SpaceObservatorySerializer(serializers.ModelSerializer):
 
 
 class SpaceStationSerializer(serializers.ModelSerializer):
-  docked_spacecrafts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+  docked_spacecrafts = serializers.PrimaryKeyRelatedField(many=True,
+                                                          read_only=True)
 
   class Meta:
     model = SpaceStation
-    fields = ('id', 'name', 'spacecraft_type', 'launch_date',
-              'mass', 'length', 'width', 'pressurised_volume',
-              'atmospheric_pressure', 'perigee_altitude',
-              'apogee_altitude', 'orbital_inclination', 'orbital_speed',
-              'orbital_period', 'in_orbit_since', 'days_in_orbit',
-              'occupied_since', 'days_occupied', 'distance_traveled',
-              'power', 'revs_per_day', 'no_revs', 'curr_expedition', 'image',
+    fields = ('id', 'name', 'spacecraft_type', 'mass', 'length',
+              'width', 'pressurised_volume', 'atmospheric_pressure',
+              'perigee_altitude', 'apogee_altitude', 'orbital_inclination',
+              'orbital_speed', 'orbital_period', 'in_orbit_since',
+              'days_in_orbit', 'occupied_since', 'days_occupied',
+              'distance_traveled', 'power', 'curr_expedition', 'image',
               'docked_spacecrafts', 'main_modules', 'no_crew', 'description')
     read_only_fields = ('id', )

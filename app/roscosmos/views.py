@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from rest_framework import viewsets, mixins
 
 from . import serializers
@@ -14,8 +12,8 @@ from core.models import (LaunchPad,
 
 
 class BasicViewSet(viewsets.GenericViewSet,
-                       mixins.ListModelMixin,
-                       mixins.RetrieveModelMixin):
+                   mixins.ListModelMixin,
+                   mixins.RetrieveModelMixin):
   pass
 
 
