@@ -16,7 +16,7 @@ class LaunchPadSerializer(serializers.ModelSerializer):
     model = LaunchPad
     fields = ('id', 'name', 'establishment_date', 'location',
               'area', 'rented', 'used_by', 'use_period',
-              'no_launches', 'no_employees', 'description')
+              'no_launches', 'no_employees', 'description', 'image')
     read_only_fields = ('id', )
 
 
@@ -27,7 +27,7 @@ class SpaceTugSerializer(serializers.ModelSerializer):
     fields = ('id', 'name', 'manufacturer', 'first_launch_date',
               'autonomous_flight_time', 'length', 'diameter',
               'start_mass', 'fuel_type', 'fuel_supply', 'engine_thrust',
-              'no_inclusions', 'no_flights', 'description')
+              'no_inclusions', 'no_flights', 'description', 'image')
     read_only_fields = ('id', )
 
 
@@ -38,7 +38,7 @@ class LaunchVehicleSerializer(serializers.ModelSerializer):
     model = LaunchVehicle
     fields = ('id', 'name', 'manufacturer', 'no_stages',
               'length', 'diameter', 'start_mass', 'fuel_type',
-              'max_distance', 'space_tugs', 'status', 'description')
+              'max_distance', 'space_tugs', 'status', 'description', 'image')
     read_only_fields = ('id', )
 
 
@@ -61,7 +61,7 @@ class SpacecraftSerializer(serializers.ModelSerializer):
     fields = ('id', 'name', 'manufacturer', 'launch_mass',
               'lifetime_period', 'orbital_period', 'coverage_diameter',
               'power', 'launch_vehicles', 'orbital_inclination',
-              'accuracy', 'description')
+              'accuracy', 'description', 'image')
     read_only_fields = ('id', )
 
 
@@ -73,7 +73,7 @@ class OrbitalGroupingSerializer(serializers.ModelSerializer):
     fields = ('id', 'name', 'first_launch_date', 'no_spacecrafts',
               'spacecrafts', 'no_planes', 'no_spacecrafts_on_plane',
               'orbital_period', 'orbital_inclination', 'orbit_type',
-              'orbit_height', 'accuracy', 'coverage', 'description')
+              'orbit_height', 'accuracy', 'coverage', 'description', 'image')
     read_only_fields = ('id', )
 
 
@@ -87,7 +87,7 @@ class SpaceObservatorySerializer(serializers.ModelSerializer):
               'launch_pad', 'launch_vehicles', 'satellite_of',
               'launch_mass', 'payload_mass', 'power', 'platform',
               'power_source', 'lifetime_period', 'radio_frequency_range',
-              'transmission_speed', 'flight_duration', 'description')
+              'transmission_speed', 'flight_duration', 'description', 'image')
     read_only_fields = ('id', )
 
 
@@ -102,6 +102,6 @@ class SpaceStationSerializer(serializers.ModelSerializer):
               'apogee_altitude', 'orbital_inclination', 'orbital_speed',
               'orbital_period', 'in_orbit_since', 'days_in_orbit',
               'occupied_since', 'days_occupied', 'distance_traveled',
-              'power', 'revs_per_day', 'no_revs', 'curr_expedition',
+              'power', 'revs_per_day', 'no_revs', 'curr_expedition', 'image',
               'docked_spacecrafts', 'main_modules', 'no_crew', 'description')
     read_only_fields = ('id', )

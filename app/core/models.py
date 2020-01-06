@@ -15,6 +15,7 @@ class LaunchPad(models.Model):
   no_launches = models.IntegerField()
   no_employees = models.IntegerField(blank=True, null=True)
   description = models.TextField(blank=True, null=True)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   def __str__(self):
     return self.name
@@ -34,6 +35,7 @@ class SpaceTug(models.Model):
   no_inclusions = models.IntegerField(blank=True, null=True)
   no_flights = models.IntegerField(blank=True, null=True)
   description = models.TextField(blank=True)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   def __str__(self):
     return self.name
@@ -55,6 +57,7 @@ class LaunchVehicle(models.Model):
   )
   status = models.CharField(max_length=12, choices=STATUS_CHOICES)
   description = models.TextField(blank=True, null=True)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   def __str__(self):
     return self.name
@@ -91,6 +94,7 @@ class Spacecraft(models.Model):
   orbital_inclination = models.CharField(max_length=64, blank=True)
   accuracy = models.CharField(max_length=64, blank=True)
   description = models.TextField(blank=True)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   def __str__(self):
     return self.name
@@ -110,6 +114,7 @@ class OrbitalGrouping(models.Model):
   accuracy = models.CharField(max_length=64, blank=True)
   coverage = models.CharField(max_length=64, blank=True)
   description = models.TextField(blank=True)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   def __str__(self):
     return self.name
@@ -130,6 +135,7 @@ class SpaceObservatory(models.Model):
   lifetime_period = models.CharField(max_length=64)
   radio_frequency_range = models.CharField(max_length=64)
   transmission_speed = models.CharField(max_length=64)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   @property
   def flight_duration(self):
@@ -179,6 +185,7 @@ class SpaceStation(models.Model):
   main_modules = models.TextField()
   no_crew = models.IntegerField()
   description = models.TextField(blank=True)
+  image = models.ImageField(upload_to='images/', max_length=255, null=True)
 
   def __str__(self):
     return self.name
