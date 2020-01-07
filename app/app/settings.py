@@ -148,6 +148,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
     'update_launches': {
         'task': 'core.tasks.update_launches',
-        'schedule': crontab(minute='*/1')  # execute every minute
+        'schedule': crontab(minute=0, hour=0)  # execute daily at midnight
     }
 }
