@@ -36,7 +36,7 @@ class LaunchVehicleSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = LaunchVehicle
-    fields = ('id', 'name', 'manufacturer', 'no_stages',
+    fields = ('id', 'name', 'manufacturer', 'no_stages', 'no_launches',
               'length', 'diameter', 'start_mass', 'fuel_type',
               'max_distance', 'space_tugs', 'status', 'description', 'image')
     read_only_fields = ('id', )
