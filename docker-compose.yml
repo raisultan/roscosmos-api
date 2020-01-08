@@ -23,6 +23,8 @@ services:
 
   db:
     image: postgres:10-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data #avoid data removal when docker is shut down
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=dbuser
@@ -53,3 +55,6 @@ services:
     depends_on:
       - db
       - redis
+
+volumes:
+  postgres-data:

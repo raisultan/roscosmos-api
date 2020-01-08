@@ -22,7 +22,7 @@ class Command(BaseCommand):
   def handle(self, *args, **options):
     for urlobj in ParseUrl.objects.all():
       resp = req.get(urlobj.url)
-      soup = BeautifulSoup(resp.text, 'lxml')
+      soup = BeautifulSoup(resp.text, 'html.parser')
 
       table = soup.find('table', class_='table-launch')
       launches = []
