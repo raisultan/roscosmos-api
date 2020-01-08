@@ -27,7 +27,10 @@ SECRET_KEY = 'aczd3e_8e!jor5*ds7x(m43l)^kqzdp)$h!9x)6xk=j$1u4ho='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.241.146.142',
+    'roscosmos.xyz',
+]
 
 
 # Application definition
