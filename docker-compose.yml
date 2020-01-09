@@ -49,7 +49,12 @@ services:
 
   celery-beat:
     build: .
-    command: celery -A app beat -l info
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=dbuser
+      - DB_PASSWORD=django123
+    command: celery -A app beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - ./app:/app
     depends_on:
