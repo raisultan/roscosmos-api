@@ -2,9 +2,12 @@
 
 <h1 align="center">Roscosmos REST API</h1>
 
-<p align="center">
+<h1 align="center">
+<h1 align="center">
+<a href="https://documenter.getpostman.com/view/6866794/SWLh5Rqu?version=latest">Документация</a>
+<br/>
 <a href="https://en.wikipedia.org/wiki/Representational_state_transfer"><img src="https://img.shields.io/badge/interface-REST-brightgreen.svg?longCache=true&style=flat-square"></a>
-</p>
+</h1>
 
 <h3 align="center">Open Source REST API по данным космической деятельности корпорации "Роскосмос"</h3>
 
@@ -13,7 +16,7 @@
 **Пример ответа**
 
 ```bash
-curl -s http://localhost:8000/api/launchpads/
+curl -s http://roscosmos.xyz/api/launchpads/
 ```
 
 ```json
@@ -93,23 +96,8 @@ docker-compose up
 * Для автоматизации обновления информации запусков - [Celery](http://www.celeryproject.org/)
 * Для парсинга данных - [beautifulsoup4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 * Все данные хранятся на - [PostgreSQL](https://www.postgresql.org/)
-
-## API
-* Космодромы: /api/launchpads/
-  * Определенный космодром: /api/launchpads/[id]/
-* Разгонные блоки: /api/spacetugs/
-  * Определенный разгонный блок: /api/spacetugs/[id]/
-* Ракета-носители: /api/launchvehicles/
-  * Определенный ракета-носитель: /api/launchvehicles/[id]/
-* Запуски: /api/launches/
-  * Определенный запуск: /api/launches/[id]/
-* Космические аппараты: /api/spacecrafts/
-  * Определенный КА: /api/spacecrafts/[id]/
-* Орбитальные группировки: /api/orbitalgroupings/
-  * Определенная орбитальная группировка: /api/orbitalgroupings/[id]/
-* Космические обсерватории: /api/spaceobservatories/
-  * Определенный космический обсерваторий: /api/spaceobservatories/[id]/
-* Международная космическая станция: /api/spacestations/1/
+* Веб-ервер - [Gunicorn](https://docs.gunicorn.org/en/stable/)
+* Прокси-сервер - [Nginx](https://nginx.org/ru/docs/beginners_guide.html)
 
 ## FAQ's
 * Не все данные могут быть точны
