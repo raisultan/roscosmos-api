@@ -15,6 +15,3 @@ WORKDIR /app
 COPY ./app /app
 
 EXPOSE 8000
-
-# define the default command to run when starting the container
-CMD ["gunicorn", "--chdir", "app", "--bind", ":8000", "app.wsgi:application"]
