@@ -4,10 +4,13 @@ services:
   app:
     build:
       context: .
-    ports:
-      - "8000:8000"
     volumes:
       - ./app:/app
+      - static_volume:/static
+      - media_volume:/media
+    networks:
+      - nginx_network
+      - db_network
     command: >
       sh -c "python3 manage.py wait_for_db &&
               python3 manage.py migrate &&
@@ -24,14 +27,18 @@ services:
   db:
     image: postgres:10-alpine
     volumes:
-      - postgres-data:/var/lib/postgresql/data #avoid data removal when docker is shut down
+      - postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=django123
+    networks:
+      - db_network
 
   redis:
     image: "redis:alpine"
+    networks:
+    - db_network
 
   celery:
     build: .
@@ -46,6 +53,8 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - db_network
 
   celery-beat:
     build: .
@@ -60,6 +69,30 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - db_network
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/static
+      - media_volume:/media
+    depends_on:
+      - app
+      - db
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  db_network:
+    driver: bridge
 
 volumes:
   postgres-data:
+  static_volume:
+  media_volume:
