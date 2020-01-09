@@ -74,6 +74,7 @@ services:
 
   nginx:
     image: nginx:1.13
+    # change port to 80:80 in production
     ports:
       - 8000:80
     volumes:
