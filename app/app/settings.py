@@ -28,8 +28,8 @@ SECRET_KEY = 'aczd3e_8e!jor5*ds7x(m43l)^kqzdp)$h!9x)6xk=j$1u4ho='
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '192.241.146.142',
-    'roscosmos.xyz',
 ]
 
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    'django_celery_beat',
 
     # local
     'core',
