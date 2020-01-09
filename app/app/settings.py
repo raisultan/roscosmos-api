@@ -30,6 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '192.241.146.142',
+    'roscosmos.xyz',
+    'www.roscosmos.xyz',
 ]
 
 
