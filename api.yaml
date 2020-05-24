@@ -1,0 +1,422 @@
+openapi: 3.0.0
+info:
+  title: Roscosmos-API
+  version: "1"
+servers:
+  - url: 'http://roscosmos.xyz/api'
+paths:
+  /launchpads/:
+    get:
+      summary: Launch pads list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/launchpad'
+      operationId: get-launchpads
+      description: Get list of all launchpads
+  /spacetugs/:
+    get:
+      summary: Space tugs list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/spacetug'
+      operationId: get-spacetugs
+      description: Get all of the spacetugs
+  /launchvehicles/:
+    get:
+      summary: Launch vehicles list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/launchvehicle'
+      operationId: get-launchvehicles
+      description: Get list of all launch vehicles
+  /launches/:
+    get:
+      summary: Launches list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/launch'
+      operationId: get-launches
+  /spacecrafts/:
+    get:
+      summary: Spacecrafts list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/spacecraft'
+      operationId: get-spacecrafts
+      description: Get list of all spacecrafts
+  /orbitalgroupings/:
+    get:
+      summary: Orbital groupings list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/orbitalgrouping'
+      operationId: get-orbitalgroupings
+      description: Get list of all orbital groupings
+  /spaceobservatories/:
+    get:
+      summary: Space observatories list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/spaceobservatory'
+      operationId: get-spaceobservatories
+      description: Get list of all space observatories
+  /spacestations/:
+    get:
+      summary: Space stations list
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/spacestation'
+      operationId: get-spacestations
+      description: Get list of all spacestations
+components:
+  schemas:
+    launchpad:
+      title: launchpad
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        establishmnent_date:
+          type: string
+          format: date
+        location:
+          type: string
+        area:
+          type: string
+        rented:
+          type: boolean
+        used_by:
+          type: string
+        use_period:
+          type: string
+        no_launches:
+          type: integer
+        no_employees:
+          type: integer
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+    spacetug:
+      title: spacetug
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        manufacturer:
+          type: string
+        first_launch_date:
+          type: string
+          format: date
+        autonomous_flight_time:
+          type: string
+        length:
+          type: string
+        diameter:
+          type: string
+        start_mass:
+          type: string
+        fuel_type:
+          type: string
+        fuel_supply:
+          type: string
+        engine_thrust:
+          type: string
+        no_inclusions:
+          type: integer
+        no_flights:
+          type: integer
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+    launchvehicle:
+      title: launchvehicle
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        manufacturer:
+          type: string
+        no_stages:
+          type: integer
+        no_launches:
+          type: integer
+        length:
+          type: string
+        diameter:
+          type: string
+        start_mass:
+          type: string
+        fuel_type:
+          type: string
+        max_distance:
+          type: string
+        space_tugs:
+          type: array
+          items:
+            type: integer
+        status:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+    launch:
+      title: launch
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+          format: time
+        launchpad:
+          $ref: '#/components/schemas/launchpad'
+        launch_vehicle:
+          $ref: '#/components/schemas/launchvehicle'
+        result:
+          type: string
+        description:
+          type: string
+    spacecraft:
+      title: spacecruft
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        manufacturer:
+          type: string
+        launch_mass:
+          type: string
+        lifetime_period:
+          type: string
+        orbital_period:
+          type: string
+        coverage_diameter:
+          type: string
+        power:
+          type: string
+        launch_vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/launchvehicle'
+        orbital_inclination:
+          type: string
+        accuracy:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+    orbitalgrouping:
+      title: orbitalgrouping
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        first_launch_date:
+          type: string
+          format: date
+        no_spacecrafts:
+          type: string
+        spacecrafts:
+          type: array
+          items:
+            type: integer
+        no_planes:
+          type: integer
+        no_spacecrafts_on_plane:
+          type: integer
+        orbital_period:
+          type: string
+        orbital_inclination:
+          type: string
+        orbit_type:
+          type: string
+        orbit_height:
+          type: string
+        accuracy:
+          type: string
+        coverage:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+    spaceobservatory:
+      title: spaceobservatory
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        manufacturer:
+          type: string
+        launch_date:
+          type: string
+        launch_pad:
+          $ref: '#/components/schemas/launchpad'
+        launch_vehicles:
+          type: array
+          items:
+            type: integer
+        satellite_of:
+          type: string
+        launch_mass:
+          type: string
+        payload_mass:
+          type: string
+        power:
+          type: string
+        platform:
+          type: string
+        power_source:
+          type: string
+        lifetime_period:
+          type: string
+        radio_frequency:
+          type: string
+        transmission_speed:
+          type: string
+        flight_duration:
+          type: integer
+        description:
+          type: string
+        image:
+          type: string
+          format: uri
+    spacestation:
+      title: spacestation
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        mass:
+          type: string
+        length:
+          type: string
+        width:
+          type: string
+        pressurised_volume:
+          type: string
+        atmospheric_pressure:
+          type: string
+        perigee_altitude:
+          type: string
+        apogee_altitude:
+          type: string
+        orbital_inclination:
+          type: string
+        orbital_speed:
+          type: string
+        orbital_period:
+          type: string
+        in_orbit_since:
+          type: string
+          format: date
+        days_in_orbit:
+          type: integer
+        occupied_since:
+          type: string
+          format: date
+        days_occupied:
+          type: integer
+        distance_traveled:
+          type: string
+        power:
+          type: string
+        curr_expedition:
+          type: string
+        image:
+          type: string
+          format: uri
+        docked_spacecrafts:
+          type: array
+          items:
+            $ref: '#/components/schemas/spacecraft'
+        main_modules:
+          type: string
+        no_crew:
+          type: integer
+        description:
+          type: string
