@@ -134,6 +134,7 @@ components:
           type: string
         name:
           type: string
+          description: Название космодрома
         establishmnent_date:
           type: string
           format: date
