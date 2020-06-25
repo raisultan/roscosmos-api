@@ -1,5 +1,3 @@
-<p align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Roscosmos_logo_ru.svg/381px-Roscosmos_logo_ru.svg.png"></p>
-
 <h1 align="center">Roscosmos REST API</h1>
 
 <h1 align="center">
